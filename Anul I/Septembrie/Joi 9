@@ -1,0 +1,98 @@
+// Lab_9_28_2017.cpp : Defines the entry point for the console application.
+
+Cerinta: Sa se sorteze numerele folosind ultima cifra
+Stare: Merge doar pentru numere cu un numar prestabilit de cifre
+TODO: Modifica sa sorteze toate numerele indiferent de numarul de cifre
+
+INPUT:
+8 3
+652 732 112 782 712 113 888 845
+
+OUTPUT:
+112 113 652 712 732 782 845 888
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+ifstream in("date_in.txt");
+// ofstream out("date_out.txt");
+/*
+	VARIABILE
+*/
+
+int n;		// nr de elemente
+int l_max;   // nr de cifre
+int v[100]; // vectorul cu elemente
+int p[100]; // vectorul de pozitie
+
+/*
+	FUNCTII
+*/
+
+void citire();
+void afisare();
+int getLast(int, int);
+void sort();
+
+int main()
+{
+	citire();
+	sort();
+	afisare();
+    return 0;
+}
+
+void sort() 
+{
+	int ok;
+
+	for (int l = 0; l < l_max; ++l)
+	{
+		do
+		{
+			for (int i = 1; i < n; ++i)
+				if (getLast(l, v[i]) > getLast(l, v[i + 1]))
+					swap(v[i], v[i + 1]);
+			
+			ok = 0;
+			for (int i = 1; i < n; ++i)
+				if (getLast(l, v[i]) > getLast(l, v[i + 1]))
+					ok = 1;
+		} while (ok);
+	}
+}
+
+int getLast(int l, int nr)
+{
+	int a = 10;
+	int b = 1;
+	while (l)
+	{
+		a *= 10;
+		b *= 10;
+		l--;
+	}
+
+	return nr%a / b;
+}
+
+void afisare()
+{
+	for (int i = 1; i <= n; ++i)
+	{
+		cout << v[i] << " ";
+	}
+	int x;
+	cin >> x;
+}
+
+void citire()
+{
+	in >> n >> l_max;
+	for (int i = 1; i <= n; ++i)
+	{
+		in >> v[i];
+		p[i] = i;
+	}
+}
+
