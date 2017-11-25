@@ -69,6 +69,11 @@ void adaugaMeniu(comanda &c, char idMeniu[])
 	}
 	cout << "Portii: ";
 	cin >> cantitate;
+	if (cantitate == 0)
+	{
+		cantitate = 1;
+		cout << "O portie a fost adaugata!\n";
+	}
 	c.lista[meniu] += cantitate;
 }
 void creareComanda(comanda &c)
