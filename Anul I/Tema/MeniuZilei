@@ -44,7 +44,7 @@ void init(comanda &c)
 		c.lista[i] = 0;
 	}
 
-	cout << "Oferta zilei zilei:\n";
+	cout << "Oferta zilei:\n";
 	cout << "	Piure  - 2.5 lei\n";
 	cout << "	Ciorba - 3.0 lei\n";
 	cout << "	Pulpe  - 4.0 lei:\n";
