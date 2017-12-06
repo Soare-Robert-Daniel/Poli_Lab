@@ -13,6 +13,7 @@ struct comanda
 {
 	int id = 0;
 	int lista[4];
+	double total = 0;
 };
 enum Meniu
 {
@@ -25,16 +26,49 @@ void init(comanda &c);
 void adaugaMeniu(comanda &c, char idMeniu[]);
 void creareComanda(comanda &c);
 void afisareComanda(comanda &c);
+int procesareComanda(comanda lista[], int &nrComenzi);
+void sortareTotal(comanda lista[], int nr);
+void afisareLista(comanda lista[], int nr);
 
 int main()
+{
+	comanda listaComenzi[100];
+	int nrComenzi = 0;
+	while (procesareComanda(listaComenzi, nrComenzi));
+	afisareLista(listaComenzi, nrComenzi);
+	_getch();
+    return 0;
+}
+
+void afisareLista(comanda lista[], int nr)
+{
+	cout << "\n\n+-----------------------Lista comenzi-----------------------+";
+	sortareTotal(lista, nr);
+	for (int i = 1; i <= nr; ++i)
+		afisareComanda(lista[i]);
+}
+
+int procesareComanda(comanda lista[], int &nrComenzi)
 {
 	comanda c;
 	init(c);
 	creareComanda(c);
 	afisareComanda(c);
+	nrComenzi++;
+	lista[nrComenzi] = c;
 
-	_getch();
-    return 0;
+	
+	if (nrComenzi == 99) {
+		cout << "Nu se mai pot face comenzi!";
+		return 0;
+	}
+	
+	char msg[3];
+	cout << "\n$ Doriti sa creati alta comanda(da/nu)? ";
+	cin.getline(msg, 3);
+	if (strcmp(msg, "da") == 0)
+		return 1;
+	return 0;
 }
 
 void init(comanda &c)
@@ -81,15 +115,15 @@ void creareComanda(comanda &c)
 	c.id = id++;
 	int nr = 0;
 	char meniu[20];
+	char ans[3];
 	do
 	{
 		cout << "Alege un meniu: ";
-		cin >> meniu;
+		cin.getline(meniu, 20);
 		adaugaMeniu(c, meniu);
 		cout << "Doriti sa comandati si alt meniu (da/nu)? ";
-		char ans[3];
-		cin >> ans;
-		if (strcmp(ans, "nu") == 0)
+		cin.getline(ans, 3);
+		if (strcmp(ans, "da") != 0)
 			break;
 	} while (true);
 }
@@ -97,6 +131,7 @@ void creareComanda(comanda &c)
 void afisareComanda(comanda &c)
 {
 	cout << "\n\nComanda dumneavoastra:\n";
+	cout << "Nr. comanda: " << c.id << '\n';
 	double total = 0;
 	for (int i = 1; i <= 3; ++i)
 	{
@@ -124,5 +159,14 @@ void afisareComanda(comanda &c)
 		total += cost;
 	}
 	cout << "+---------------------+\n";
+	c.total = total;
 	cout << "Total comanda: " << total << " lei\n";
+}
+
+void sortareTotal(comanda lista[], int nr)
+{
+	for (int i = 1; i < nr; ++i)
+		for (int j = i + 1; j <= nr; ++j)
+			if (lista[i].total < lista[j].total)
+				swap(lista[i], lista[j]);
 }
