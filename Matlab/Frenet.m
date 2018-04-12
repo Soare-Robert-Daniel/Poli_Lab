@@ -22,7 +22,7 @@ normala = cross(binormala, tangenta);
 % dreapta_osculatoare = [ (x - x0)/binormala(1); (y - y0)/binormala(2); (z - z0)/binormala(3)];
 % dreapta_normala = [ (x - x0)/normala(1); (y - y0)/normala(2); (z - z0)/normala(3)];
 
-planul_tangent = [ (x - x0) (y - y0) (z - z0)] * tangenta;
+planul_normal = [ (x - x0) (y - y0) (z - z0)] * tangenta;
 planul_osculator = [ (x - x0) (y - y0) (z - z0)] * binormala;
 planul_rectificator = [ (x - x0) (y - y0) (z - z0)] * normala;
 
@@ -43,7 +43,7 @@ disp('Normala'); subs(normala, t, solutie)
 % disp('Dreapta_osculatoare'); subs(dreapta_osculatoare, t, solutie)
 % disp('Dreapta_normala'); subs(dreapta_normala, t, solutie)
 
-disp('Planul_tangent'); subs(planul_tangent, t, solutie)
+disp('Planul_normal'); subs(planul_normal, t, solutie)
 disp('Planul_osculator'); subs(planul_osculator, t, solutie)
 disp('Planul_rectificator'); subs(planul_rectificator, t, solutie)
 
